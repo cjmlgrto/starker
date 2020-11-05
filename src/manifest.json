@@ -3,15 +3,15 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "my-command",
-      "identifier": "starker.my-command-identifier",
-      "script": "./my-command.js"
+      "name": "Get Contrast Combinations",
+      "identifier": "starker.get-contrast-combinations",
+      "script": "./command.js"
     }
   ],
   "menu": {
-    "title": "starker",
+    "title": "Starker",
     "items": [
-      "starker.my-command-identifier"
+      "starker.get-contrast-combinations"
     ]
   }
 }
