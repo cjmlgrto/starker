@@ -41,10 +41,9 @@ const collectResults = (pairs) => {
   return pairs.map(pair =>({
     'foreground': `${pair.foreground.hexcode}`,
     'background': `${pair.background.hexcode}`,
-    'smallTextRating': `${pair.getSmallTextRating()}`,
-    'largeTextRating': `${pair.getLargeTextRating()}`,
     'contrastRatio': `${pair.contrastRatio.toFixed(2)}`,
-    'result': `${pair.getRating() ? "✅ PASS" : "❌ FAIL"}`
+    'smallTextRating': `${pair.getSmallTextRating()}`,
+    'largeTextRating': `${pair.getLargeTextRating()}`
   }))
 }
 
@@ -65,8 +64,8 @@ export default function() {
     identifier: 'starker.get-contrast-combinations',
     title: 'Starker Results',
     alwaysOnTop: true,
-    minWidth: 580,
-    width: 580,
+    minWidth: 420,
+    width: 420,
     height: 640
   })
 

@@ -80,6 +80,14 @@
                 font-weight: 500;
             }
 
+            .bad {
+                color: #FF3B30;
+            }
+
+            .best {
+                color: #34C759;
+            }
+
         </style>
 
         <script type="text/javascript">
@@ -111,6 +119,19 @@
 
                 const dataElement = document.createElement('div')
                 dataElement.className = 'data'
+
+                if (data === "FAIL") {
+                    dataElement.classList.add("bad")
+                }
+
+                if (data === "AA") {
+                    dataElement.classList.add("good")
+                }
+
+                if (data === "AAA") {
+                    dataElement.classList.add("best")
+                }
+
                 dataElement.innerHTML = data
                 containerElement.appendChild(dataElement)
 
@@ -126,18 +147,15 @@
 
                     const preview = constructPreview(result.foreground, result.background)
                     newItem.appendChild(preview)
+
+                    const contrastRatioAnnotation = constructAnnotation('Contrast Ratio', result.contrastRatio)
+                    newItem.appendChild(contrastRatioAnnotation)
                     
                     const smallTextRatingAnnotation = constructAnnotation('Small Text', result.smallTextRating)
                     newItem.appendChild(smallTextRatingAnnotation)
                     
                     const largeTextRatingAnnotation = constructAnnotation('Large Text', result.largeTextRating)
                     newItem.appendChild(largeTextRatingAnnotation)
-                    
-                    const contrastRatioAnnotation = constructAnnotation('Contrast Ratio', result.contrastRatio)
-                    newItem.appendChild(contrastRatioAnnotation)
-                    
-                    const resultAnnotation = constructAnnotation('Result', result.result)
-                    newItem.appendChild(resultAnnotation)
 
                     resultsElement.appendChild(newItem)
                 })
