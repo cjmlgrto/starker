@@ -39,8 +39,8 @@ const createPairs = (colors) => {
 
 const collectResults = (pairs) => {
   return pairs.map(pair =>({
-    'foreground': `${pair.foreground.name}`,
-    'background': `${pair.background.name}`,
+    'foreground': `${pair.foreground.hexcode}`,
+    'background': `${pair.background.hexcode}`,
     'smallTextRating': `${pair.getSmallTextRating()}`,
     'largeTextRating': `${pair.getLargeTextRating()}`,
     'contrastRatio': `${pair.contrastRatio.toFixed(2)}`,
@@ -63,7 +63,11 @@ export default function() {
 
   const browser = new BrowserWindow({ 
     identifier: 'starker.get-contrast-combinations',
-    alwaysOnTop: true
+    title: 'Starker Results',
+    alwaysOnTop: true,
+    minWidth: 580,
+    width: 580,
+    height: 640
   })
 
   browser.loadURL(require('./view.html'))
@@ -73,6 +77,6 @@ export default function() {
       `render(${JSON.stringify(results)})`
     )
     .then(res => {
-      sketch.UI.message('X colors compared.')
+      sketch.UI.message(`${colors.length} colors selected, ${pairs.length} pairs compared.`)
     })
 }

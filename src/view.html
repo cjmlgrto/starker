@@ -3,20 +3,142 @@
         <title>Starker</title>
         <meta charset="utf-8">
         <style>
-            html {
-                background-color: white;
+            :root {
+                --color-content: #000000;
+                --color-content-secondary: #636366;
+                --color-divider: rgba(0,0,0,0.1);
             }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --color-content: #ffffff;
+                    --color-content-secondary: #BBBBBB;
+                    --color-divider: rgba(255,255,255,0.1);
+                }
+            
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                box-sizing: border-box;
+                max-width: 100%;
+            }
+
+            html {
+                color: var(--color-content);
+                background-color: transparent;
+                font-family: -apple-system, 'Helvetica Neue', sans-serif;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .result {
+                display: flex;
+                align-items: center;
+                padding: 20px;
+                border-bottom: 1px solid var(--color-divider);
+            }
+
+            .preview {
+                width: 48px;
+                height: 48px;
+                position: relative;
+                display: block;
+                margin-right: 24px;
+            }
+
+            .preview > div {
+                width: 32px;
+                height: 32px;
+                display: block;
+                position: absolute;
+            }
+
+            .foreground {
+                box-shadow: 0 0 0 1px var(--color-divider) inset;
+            }
+
+            .background {
+                bottom: 0;
+                right: 0;
+                box-shadow: 0 0 0 1px var(--color-divider) inset;
+            }
+
+            .annotation {
+                margin-right: 32px;
+            }
+
+            .label {
+                font-weight: 600;
+                font-size: 12px;
+                margin-bottom: 4px;
+                color: var(--color-content-secondary);
+            }
+
+            .data {
+                font-weight: 500;
+            }
+
         </style>
 
         <script type="text/javascript">
+            const constructPreview = (foreground, background) => {
+                const containerElement = document.createElement('div')
+                containerElement.className = 'preview'
+
+                const backgroundElement = document.createElement('div')
+                backgroundElement.className = 'background'
+                backgroundElement.style = `background-color: #${background}`
+                containerElement.appendChild(backgroundElement)
+                
+                const foregroundElement = document.createElement('div')
+                foregroundElement.className = 'foreground'
+                foregroundElement.style = `background-color: #${foreground}`
+                containerElement.appendChild(foregroundElement)
+
+                return containerElement
+            }
+
+            const constructAnnotation = (label, data) => {
+                const containerElement = document.createElement('div')
+                containerElement.className = 'annotation'
+
+                const labelElement = document.createElement('div')
+                labelElement.className = 'label'
+                labelElement.innerHTML = label
+                containerElement.appendChild(labelElement)
+
+                const dataElement = document.createElement('div')
+                dataElement.className = 'data'
+                dataElement.innerHTML = data
+                containerElement.appendChild(dataElement)
+
+                return containerElement
+            }
+
             window.render = (results) => {
                 const resultsElement = document.getElementById('results')
 
                 results.forEach(result => {
                     const newItem = document.createElement('li')
-                    const newItemContent = document.createTextNode(`${result.foreground} on ${result.background}: ${result.result}`)
+                    newItem.className = 'result'
 
-                    newItem.appendChild(newItemContent)
+                    const preview = constructPreview(result.foreground, result.background)
+                    newItem.appendChild(preview)
+                    
+                    const smallTextRatingAnnotation = constructAnnotation('Small Text', result.smallTextRating)
+                    newItem.appendChild(smallTextRatingAnnotation)
+                    
+                    const largeTextRatingAnnotation = constructAnnotation('Large Text', result.largeTextRating)
+                    newItem.appendChild(largeTextRatingAnnotation)
+                    
+                    const contrastRatioAnnotation = constructAnnotation('Contrast Ratio', result.contrastRatio)
+                    newItem.appendChild(contrastRatioAnnotation)
+                    
+                    const resultAnnotation = constructAnnotation('Result', result.result)
+                    newItem.appendChild(resultAnnotation)
+
                     resultsElement.appendChild(newItem)
                 })
             }

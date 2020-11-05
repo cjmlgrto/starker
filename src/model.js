@@ -64,7 +64,12 @@ export class ColorPair {
       this.background.getBlue()
     )
 
-    return (backgroundLuminance + 0.05) / (foregroundLuminance + 0.05)
+    if (backgroundLuminance > foregroundLuminance) {
+      return (backgroundLuminance + 0.05) / (foregroundLuminance + 0.05)
+    } else {
+      return (foregroundLuminance + 0.05) / (backgroundLuminance + 0.05)
+    }
+
   }
 
   getSmallTextRating() {
