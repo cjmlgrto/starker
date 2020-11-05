@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Starker</title>
+        <meta charset="utf-8">
+        <style>
+            html {
+                background-color: white;
+            }
+        </style>
+
+        <script type="text/javascript">
+            window.render = (results) => {
+                const resultsElement = document.getElementById('results')
+
+                results.forEach(result => {
+                    const newItem = document.createElement('li')
+                    const newItemContent = document.createTextNode(`${result.foreground} on ${result.background}: ${result.result}`)
+
+                    newItem.appendChild(newItemContent)
+                    resultsElement.appendChild(newItem)
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <ul id="results"></ul>
+    </body>
+
+</html>

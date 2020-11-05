@@ -23,5 +23,8 @@
   "devDependencies": {
     "@skpm/builder": "^0.7.0"
   },
-  "author": "Carlos Melegrito <cj@mlgrto.com>"
+  "author": "Carlos Melegrito <cj@mlgrto.com>",
+  "dependencies": {
+    "sketch-module-web-view": "^3.4.4"
+  }
 }
